@@ -3,15 +3,25 @@
 This will be something like this:
 
 As a user, I want to translate my Rails 3 application to different languages, so that more visitors can use it in their native languages.
+
 As a developer, I want to specify custom authorization proc, so that I can integrate with my application nicely.
+
 As a developer, I want to have nice layout for translations module, so I don't have to bother with integrating with my admin panel, and have some JavaScript.
+
 As a user, I want to have default translations for languages loaded from config/*.yml files, so that I can use translation module with existing applications.
+
 As a developer, I want to specify primary language used for development, so that I will have all keys populated based on it's *yml files.
+
 As a user, I want to have all strings I enter validated, based on values from *.yml files for primary language of application, so I cannot break the app with malformed translations (ie. with wrong number of parameters).
+
 As a user, I want to have default translations loaded from Rails' built in translation files, so that things like validation errors are present for English language.
+
 As a user, I want to have all Rails translations hidden in 'Framework Translations', so that user can focus primarily on application-specific strings.
+
 As a developer, I want to override list of 'Framework Translations' with a custom list provided in config/locales/framework_translation_keys file.
+
 As a user, I want to export full translations for given language to *yml file, which is syntax-compatible with Rails' default backend, so that I can move it to the other application or disable translate_yourself completely.
+
 As a user, I want to import full or partial translations for given language from *yml file, skipping keys that are not present in default language.
 
 This project rocks and uses MIT-LICENSE.
