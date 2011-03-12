@@ -4,34 +4,36 @@ require File.dirname(__FILE__) + '/acceptance_helper'
 feature "Translations management", %q{
   In order to show user app in different translate
   As a app admin
-  I want to manage translations
+  I want to 
 } do
 
   background do
+    visit translations_path
   end
 
-  scenario "Seeing a list of default translations" do
-    visit translate
-    page.should have_content "hello"
-    page.should have_content "site.name"
+  scenario "see translations keys specified in main language yaml file" do
+    page.should have_content "hello.world"
   end
 
-  scenario "Entering translations" do
-    visit translate
-    fill_in "translations[pl.hello]", :with => "Witaj, świecie"
-    fill_in "translations[de.hello]", :with => "Wilkommen!"
+  scenario "see translations provided in language files" do
+    page.should have_content "Hello world!"
+    page.should have_content "Witaj, Świecie"
+  end
+
+  scenario "editing translations" do
+    click_link "Edit hello.world"
+    fill_in "pl", with: "Elo ziomy"
+    fill_in "en", with: "Yo hommies"
     click_button "Save"
-    visit homepage("pl")
-    page.should have_content("Witaj, świecie")
-    visit homepage("de")
-    page.should have_content("Wilkommen!")
-    visit homepage("cy")
-    page.should have_content("Hello world!")
+    visit root_path
+    page.should have_content("Elo ziomy")
+    page.should have_content("Yo hommies")
   end
 
-  scenario "Seeing blocked translations" do
-    visit translate
-    page.should have_css("input[disabled='disabled']")
+  scenario "see only app translations by default, Rails ones after changing tab" do
+    page.should_not have_content("en.date.formats")
+    click_link "Framework Translations"
+    page.should have_content("en.date.formats")
   end
 end
 

@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <th>Key</th><th>Translations</th>
+  </th>
+  <% @keys.each do |key| %>
+    <tr>
+      <td id='<%= key %>' rowspan='<%= Translator.locales.count %>'>
+        <%= key %>
+      </td>
+      <% Translator.locales.each_with_index do |locale, index| %>
+        <% if index!=0 %><tr><% end %>
+          <td>
+            <%= locale %>: <%= begin I18n.backend.translate locale, key; rescue; end %>
+          </td>
+        </tr>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+

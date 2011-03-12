@@ -1,6 +1,10 @@
 module Translator
-  class SiteTranslationsController < ApplicationController
+  class TranslationsController < ApplicationController
     before_filter :auth
+
+    def index
+      @keys = Translator.keys_for_strings
+    end
 
     def edit
       @translations = hash_class[

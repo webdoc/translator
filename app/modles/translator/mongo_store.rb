@@ -1,19 +1,23 @@
 module Translator
-  class MongoStore < BaseStore
+  class MongoStore
     def initialize(collection)
       @collection = collection
     end
 
+    def keys
+      @collection.distinct :_id
+    end
+
     def []=(key, value)
-      collection.update({:_id => key}, {'$set' => {:value => ActiveSupport::JSON.encode(value)}}, :upsert => true, :safe => true)
+      value = nil if value.blank?
+      collection.update({:_id => key}, {'$set' => {:value => value}}, :upsert => true, :safe => true)
     end
 
     def [](key)
-      load_default_translations if Rails.env.development?
       if document = collection.find_one(:_id => key)
         document["value"]
       else
-        default_translation(key)
+        nil
       end
     end
 

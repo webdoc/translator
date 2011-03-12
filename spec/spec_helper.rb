@@ -26,4 +26,8 @@ RSpec.configure do |config|
 
   # == Mock Framework
   config.mock_with :rspec
+
+  config.before :each do
+    Translator.current_store.clear_database
+  end
 end

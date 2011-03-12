@@ -1,5 +1,6 @@
-dev:
-  hello: "Hello world!"
+en:
+  hello:
+    world: "Hello world!"
   site:
     name: "Some random web site"
   errors:
