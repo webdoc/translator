@@ -1,4 +1,4 @@
-module GoTranslateYourself
+module Translator
   class MongoStore < BaseStore
     def initialize(collection)
       @collection = collection

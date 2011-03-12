@@ -12,13 +12,13 @@ task :default => :spec
 
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'GoTranslateYourself'
+  rdoc.title    = 'Translator'
   rdoc.options << '--line-numbers' << '--inline-source'
   rdoc.rdoc_files.include('README.rdoc')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-spec = eval(File.read("go_translate_yourself.gemspec"))
+spec = eval(File.read("translator.gemspec"))
 Rake::GemPackageTask.new(spec) do |pkg|
 end
 

@@ -5,7 +5,7 @@ require "action_view/railtie"
 require "action_mailer/railtie"
 
 Bundler.require
-require "go_translate_yourself"
+require "translator"
 
 module Dummy
   class Application < Rails::Application

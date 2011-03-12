@@ -1,9 +1,9 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe GoTranslateYourself::MongoStore do
+describe Translator::MongoStore do
   before :each do
-    @store = GoTranslateYourself.current_store
+    @store = Translator.current_store
     @store.clear_database
   end
 

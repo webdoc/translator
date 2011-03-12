@@ -1,13 +1,13 @@
 require 'yaml'
 
-module GoTranslateYourself
+module Translator
   class BaseStore
 
     def keys
       if @keys.nil? || (Rails.env.development? && dev_translations_mtime != @mtime)
         load_default_translations
 
-        @keys = GoTranslateYourself.locales.collect {|lang| keys_without_prefix.collect {|key| "#{lang}.#{key}"} }.flatten
+        @keys = Translator.locales.collect {|lang| keys_without_prefix.collect {|key| "#{lang}.#{key}"} }.flatten
       end
 
       @keys
