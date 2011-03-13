@@ -9,7 +9,7 @@ describe Translator::MongoStore do
 
   it "should be possible to set translation value" do
     @store["pl.hello.world"] = "Witaj, świecie!"
-    @store["pl.hello.world"].should eql("Witaj, świecie!")
+    @store["pl.hello.world"].should eql("\"Witaj, \\u015bwiecie!\"")
   end
 
   it "should list all keys" do

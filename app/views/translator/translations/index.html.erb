@@ -23,3 +23,9 @@
   <%= link_to image_tag("http://amberbit.com/images/logo.png"), "http://amberbit.com" %>
 </div>
 
+<script type="text/javascript">
+  $("a[data-recover]").live("click", function(event) {
+    $("input[type='text']", $(this).parents("form")).val($(this).attr("data-recover"));
+  });
+</script>
+
