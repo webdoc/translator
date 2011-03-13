@@ -1,7 +1,38 @@
 = Translator
 
-Current features:
------------------
+== Installation
+
+=== For MongoDB:
+
+Create Gemfile and run "bundle":
+
+    gem 'mongo'
+    gem 'bson_ext'
+    gem 'translator', :git => "git://github.com/amberbit/translator.git"
+
+Create initializer, for example config/initializers/translator.rb:
+    conn = Mongo::Connection.new.db("translator_test").collection("translations")
+    Translator.current_store = Translator::MongoStore.new(conn)
+    I18n.backend = Translator.setup_backend(I18n::Backend::Simple.new)
+
+=== For Redis:
+
+Create Gemfile and run "bundle":
+
+    gem 'redis'
+    gem 'translator', :git => "git://github.com/amberbit/translator.git"
+
+Create initializer, for example config/initializers/translator.rb:
+
+    Translator.current_store = Translator::RedisStore.new(Redis.new)
+    I18n.backend = Translator.setup_backend(I18n::Backend::Simple.new)
+
+== Usage
+
+Remember to restart your server after running 'bundle' command. Translations engine is available under http://localhost:3000/translations and there is *no authorization* by default.
+
+
+== Current features:
 
 As a user, I want to translate my Rails 3 application to different languages, so that more visitors can use it in their native languages.
 
@@ -19,8 +50,9 @@ As a developer, I want to override list of 'Framework Translations' with a custo
 
 As a user, I want to revert to default translation, loaded from YAML file, by clicking on 'Default' link.
 
-Future features:
-----------------
+Ad a user, I want to choose between Redis and MongoDB for translations storage.
+
+== Future features:
 
 As a user, I want to have all strings I enter validated, based on values from *.yml files, so I cannot break the app with malformed translations (ie. with wrong number of parameters).
 
