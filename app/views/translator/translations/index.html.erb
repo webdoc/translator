@@ -1,20 +1,10 @@
-<table>
-  <tr>
-    <th>Key</th><th>Translations</th>
-  </th>
-  <% @keys.each do |key| %>
-    <tr>
-      <td id='<%= key %>' rowspan='<%= Translator.locales.count %>'>
-        <%= key %>
-      </td>
-      <% Translator.locales.each_with_index do |locale, index| %>
-        <% if index!=0 %><tr><% end %>
-          <td>
-            <%= locale %>: <%= begin I18n.backend.translate locale, key; rescue; end %>
-          </td>
-        </tr>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
+<div id='translations'>
+  <h1>Translations</h1>
 
+  <% @keys.each do |key| %>
+    <%= key %>
+    <% Translator.locales.each do |locale| %>
+      <%= render partial: "form", :locals => {:locale => locale, :key => key} %>
+    <% end %>
+  <% end %>
+</div>

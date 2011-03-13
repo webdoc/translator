@@ -9,4 +9,3 @@ I18n.backend = Translator.setup_backend(I18n.backend)
 #  end
 #}
 
-Translator.layout_name = "dummy_admin"

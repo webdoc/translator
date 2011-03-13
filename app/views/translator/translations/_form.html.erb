@@ -1,0 +1,6 @@
+<%= form_tag translations_path, :id => "#{locale}.#{key}".gsub('.', '-'), :class => "translate", "data-remote" => true, :method => "post" do %>
+  <%= hidden_field_tag :key, "#{locale}.#{key}" %>
+  <span class='locale'><%= locale %>: </span><%= text_field_tag :value, (begin I18n.backend.translate locale, key; rescue; end) %>
+  <%= submit_tag "Save", "data-disable-with" => "Saving..." %>
+<% end %>
+

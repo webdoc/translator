@@ -16,18 +16,27 @@ feature "Translations management", %q{
   end
 
   scenario "see translations provided in language files" do
+    visit root_path
     page.should have_content "Hello world!"
+    visit root_path(:locale => "pl")
     page.should have_content "Witaj, Świecie"
   end
 
   scenario "editing translations" do
-    click_link "Edit hello.world"
-    fill_in "pl", with: "Elo ziomy"
-    fill_in "en", with: "Yo hommies"
-    click_button "Save"
+    within :css, "#pl-hello-world" do
+      fill_in "value", with: "Elo ziomy"
+      click_button "Save"
+    end
+
+    within :css, "#en-hello-world" do
+      fill_in "value", with: "Yo hommies"
+      click_button "Save"
+    end
+
     visit root_path
-    page.should have_content("Elo ziomy")
     page.should have_content("Yo hommies")
+    visit root_path(:locale => "pl")
+    page.should have_content("Elo ziomy")
   end
 
   scenario "see only app translations by default, Rails ones after changing tab" do

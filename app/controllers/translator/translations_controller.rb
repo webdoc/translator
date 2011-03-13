@@ -1,28 +1,15 @@
 module Translator
   class TranslationsController < ApplicationController
+    layout "translator"
     before_filter :auth
 
     def index
       @keys = Translator.keys_for_strings
     end
 
-    def edit
-      @translations = hash_class[
-        *Translator.current_store.keys_without_prefix.collect do |key| 
-          [key, Translator.current_store.default_translation("dev.#{key}")]
-        end.flatten
-      ]
-      @locales = Translator.locales
-      render :layout => Translator.layout_name
-    end
-
-    def update
-      if params[:translations] && !params[:translations].empty?
-        params[:translations].each do |key, value|
-          Translator.current_store[key] = value
-        end
-      end
-      redirect_to site_translations_path
+    def create
+      Translator.current_store[params[:key]] = params[:value]
+      redirect_to :back unless request.xhr?
     end
 
     private

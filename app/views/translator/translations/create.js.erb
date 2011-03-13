@@ -1,0 +1,2 @@
+<% locale, key = params[:key].split(".")[0].to_sym, params[:key].sub(/^\w*\./, '') %>
+$("#<%= params[:key].gsub('.', '-') %>").replaceWith('<%= escape_javascript render(:partial => "form", :locals => {:key => key, :locale => locale}) %>');
