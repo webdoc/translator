@@ -31,6 +31,8 @@ Create initializer, for example config/initializers/translator.rb:
 
 Remember to restart your server after running 'bundle' command. Translations engine is available under http://localhost:3000/translations and there is *no authorization* by default.
 
+Default values for your translations will be loaded from config/locales/*.yml and you can revert back to using them by clicking "Default" link next to translations you make.
+
 === Adding authorization
 
 You can add custom authorization procedure, that will be executed in
@@ -53,7 +55,7 @@ Or to use with Devise and some RBAC:
           end
         }
 
-==== Custom layout
+=== Custom layout
 
 You can use custom layout if you want. Remember to include jQuery with
 Rails' UJS bindings to it, otherwise 'Default' link will not work, but
@@ -63,7 +65,7 @@ To use custom layout file ("admin.html.erb" in this example), append the followi
 
     Translator.layout_name = "admin"
 
-==== Adding extra 'Framework Translations'
+=== Adding extra 'Framework Translations'
 
 Framework translations tab by default includes all Rails translations,
 skipping ActiveRecord and ActionMailer ones. Minimal approach here. But
@@ -104,4 +106,12 @@ As a user, I want to export full translations for given language to *yml file, w
 
 As a user, I want to import full or partial translations for given language from *yml file, skipping keys that are not present in default language.
 
-This project rocks and uses MIT-LICENSE.
+= Thanks
+
+David Heinemeier Hansson for https://github.com/dhh/tolk, Ryan Bates for I18n::Backend screencast http://railscasts.com/episodes/256-i18n-backends.
+
+= Copyright and License
+
+Copyright by Hubert Łepicki, 2010-2011.
+
+This software is licensed under the terms of MIT-LICENSE.
