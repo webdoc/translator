@@ -1,10 +1,10 @@
 module Translator
   class TranslationsController < ApplicationController
-    layout "translator"
     before_filter :auth
 
     def index
       @keys = Translator.keys_for_strings
+      render :layout => Translator.layout_name
     end
 
     def create
