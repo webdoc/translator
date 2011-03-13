@@ -1,10 +1,9 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe Translator::MongoStore do
+describe Translator::RedisStore do
   before :each do
-    conn = Mongo::Connection.new.db("translator_test").collection("translations")
-    @store = Translator::MongoStore.new(conn)
+    @store = Translator::RedisStore.new(Redis.new)
     @store.clear_database
   end
 
