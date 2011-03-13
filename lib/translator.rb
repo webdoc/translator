@@ -38,7 +38,7 @@ module Translator
                      "datetime.distance_in_words.almost_x_years.one", "datetime.distance_in_words.almost_x_years.other", 
                      "datetime.prompts.year", "datetime.prompts.month", "datetime.prompts.day", "datetime.prompts.hour", 
                      "datetime.prompts.minute", "datetime.prompts.second", "helpers.select.prompt", "helpers.submit.create", 
-                     "helpers.submit.update"]
+                     "helpers.submit.update", "helpers.submit.submit"]
 
   def self.setup_backend(simple_backend)
     @simple_backend = simple_backend
