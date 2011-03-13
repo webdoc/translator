@@ -25,6 +25,7 @@
 
 <script type="text/javascript">
   $("a[data-recover]").live("click", function(event) {
+    event.preventDefault();
     $("input[type='text']", $(this).parents("form")).val($(this).attr("data-recover"));
   });
 </script>
