@@ -112,6 +112,6 @@ David Heinemeier Hansson for https://github.com/dhh/tolk, Ryan Bates for I18n::B
 
 = Copyright and License
 
-Copyright by Hubert Łepicki, 2010-2011.
+Copyright by Hubert Łępicki, 2010-2011. Find me at hubert.lepicki@amberbit.com.
 
 This software is licensed under the terms of MIT-LICENSE.
