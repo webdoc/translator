@@ -1,5 +1,10 @@
 <div id='translations'>
   <h1>Translations</h1>
+  <ul>
+    <li><%= link_to_unless_current "Application Translations", translations_path(:show => "application") %></li>
+    <li><%= link_to_unless_current "Framework Translations", translations_path(:show => "framework") %></li>
+    <li><%= link_to_unless_current "All Translations", translations_path(:show => "all") %></li>
+  </ul>
 
   <% @keys.each do |key| %>
     <%= key %>

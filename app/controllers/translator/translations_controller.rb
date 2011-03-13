@@ -3,7 +3,7 @@ module Translator
     before_filter :auth
 
     def index
-      @keys = Translator.keys_for_strings
+      @keys = Translator.keys_for_strings(:show => params[:show])
       render :layout => Translator.layout_name
     end
 

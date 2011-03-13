@@ -40,9 +40,9 @@ feature "Translations management", %q{
   end
 
   scenario "see only app translations by default, Rails ones after changing tab" do
-    page.should_not have_content("en.date.formats")
+    page.should_not have_content("date.formats")
     click_link "Framework Translations"
-    page.should have_content("en.date.formats")
+    page.should have_content("date.formats")
   end
 end
 
