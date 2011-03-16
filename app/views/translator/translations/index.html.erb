@@ -9,7 +9,7 @@
   <% @keys.each do |key| %>
     <%= key %>
     <% Translator.locales.each do |locale| %>
-      <%= render partial: "form", :locals => {:locale => locale, :key => key} %>
+      <%= render :partial => "form", :locals => {:locale => locale, :key => key} %>
     <% end %>
   <% end %>
 </div>

@@ -55,8 +55,9 @@ module Translator
 
     flat_translations = {}
     flatten_keys nil, @simple_backend.instance_variable_get("@translations"), flat_translations
-    flat_translations = flat_translations.select {|k,v| v.is_a?(String)}
-    keys = (flat_translations.keys + Translator.current_store.keys).map {|k| k.sub(/^\w*\./, '') }.uniq
+    flat_translations = flat_translations.delete_if {|k,v| !v.is_a?(String)}
+    keys = (flat_translations.keys + 
+            Translator.current_store.keys).map {|k| k.sub(/^\w*\./, '') }.uniq
     if options[:show].to_s == "all"
       keys
     elsif options[:show].to_s == "framework"
@@ -81,6 +82,7 @@ module Translator
         dest_hash[full_key] = value
       end
     end
+    hash
   end
 end
 

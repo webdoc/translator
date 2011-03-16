@@ -23,6 +23,7 @@ feature "Translations management", %q{
       end
 
       scenario "see translations keys specified in main language yaml file" do
+        sleep(10)
         page.should have_content "hello.world"
       end
 
@@ -35,12 +36,12 @@ feature "Translations management", %q{
 
       scenario "editing translations" do
         within :css, "#pl-hello-world" do
-          fill_in "value", with: "Elo ziomy"
+          fill_in "value", :with => "Elo ziomy"
           click_button "Save"
         end
 
         within :css, "#en-hello-world" do
-          fill_in "value", with: "Yo hommies"
+          fill_in "value", :with => "Yo hommies"
           click_button "Save"
         end
 
