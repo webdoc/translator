@@ -23,7 +23,6 @@ feature "Translations management", %q{
       end
 
       scenario "see translations keys specified in main language yaml file" do
-        sleep(10)
         page.should have_content "hello.world"
       end
 
