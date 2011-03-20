@@ -55,6 +55,13 @@ feature "Translations management", %q{
         click_link "Framework Translations"
         page.should have_content("date.formats")
       end
+
+      scenario "paginate translations, 50 on every page" do
+        click_link "Framework Translations"
+        page.should_not have_content("helpers.submit.submit")
+        click_link "2"
+        page.should have_content("helpers.submit.submit")
+      end
     end
   end
 end

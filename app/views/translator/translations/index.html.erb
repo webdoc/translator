@@ -12,6 +12,12 @@
       <%= render :partial => "form", :locals => {:locale => locale, :key => key} %>
     <% end %>
   <% end %>
+
+  <% unless @total_pages < 2 %>
+    <% (1..@total_pages).each do |p| %>
+      <%= link_to_unless_current p, translations_path(:show => params[:show], :page => p) %>
+    <% end %>
+  <% end %>
 </div>
 
 <div id="footer">

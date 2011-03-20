@@ -3,7 +3,7 @@ module Translator
     before_filter :auth
 
     def index
-      @keys = Translator.keys_for_strings(:show => params[:show])
+      @keys = paginate(Translator.keys_for_strings(:show => params[:show]))
       render :layout => Translator.layout_name
     end
 
@@ -16,6 +16,13 @@ module Translator
 
     def auth
       Translator.auth_handler.bind(self).call if Translator.auth_handler.is_a? Proc
+    end
+
+    def paginate(collection)
+      @page = params[:page].to_i
+      @page = 1 if @page == 0
+      @total_pages = (collection.count / 50.0).ceil
+      collection[(@page-1)*50..@page*50]
     end
   end
 end
