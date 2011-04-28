@@ -27,6 +27,22 @@ module Translator
       collection.drop
     end
 
+    def translations
+      result = {}
+      collection.find.each do |an_entry|
+        new_hash = {}
+        previous_hash = new_hash
+        previous_key = nil
+        an_entry["_id"].split('.').each do |a_key|
+          previous_hash = previous_hash[previous_key] = {} if (previous_key)
+          previous_key = a_key.to_sym
+        end
+        previous_hash[previous_key] = ActiveSupport::JSON.decode(an_entry["value"])
+        result.deep_merge!(new_hash)
+      end
+      result
+    end
+
     private
 
     def collection; @collection; end

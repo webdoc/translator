@@ -17,6 +17,12 @@ module Translator
       @redis[key]
     end
 
+    def translations
+      #TODO redis implementation
+      result = {}
+      result
+    end
+
     def clear_database
       @redis.keys.clone.each {|key| @redis.del key }
     end

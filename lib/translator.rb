@@ -43,7 +43,7 @@ module Translator
   def self.setup_backend(simple_backend)
     @simple_backend = simple_backend
 
-    I18n::Backend::Chain.new(I18n::Backend::KeyValue.new(@current_store), @simple_backend)
+    Translator::Chain.new(Translator::KeyValue.new(@current_store), @simple_backend)
   end
 
   def self.locales
