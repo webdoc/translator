@@ -52,7 +52,6 @@ module Translator
 
   def self.keys_for_strings(options = {})
     @simple_backend.available_locales
-
     flat_translations = {}
     flatten_keys nil, @simple_backend.instance_variable_get("@translations"), flat_translations
     flat_translations = flat_translations.delete_if {|k,v| !v.is_a?(String)}
@@ -62,6 +61,16 @@ module Translator
       keys
     elsif options[:show].to_s == "framework"
       keys.select {|k| @framework_keys.include?(k) }
+    elsif options[:show].to_s == 'missing'
+      keys.select do |k|
+        is_missing = false
+        Translator.locales.each do |locale|
+            if (locale != :en && @current_store["#{locale.to_s}.#{k.to_s}"].nil?)
+              is_missing = true
+            end
+        end
+        is_missing
+      end
     else
       keys - @framework_keys
     end
