@@ -57,12 +57,13 @@ module Translator
     flat_translations = flat_translations.delete_if {|k,v| !v.is_a?(String)}
     keys = (flat_translations.keys + 
             Translator.current_store.keys).map {|k| k.sub(/^\w*\./, '') }.uniq
-    if options[:show].to_s == "all"
-      keys
+
+    if options[:show].to_s == "application"
+      keys -= @framework_keys
     elsif options[:show].to_s == "framework"
-      keys.select {|k| @framework_keys.include?(k) }
+      keys.select! {|k| @framework_keys.include?(k) }
     elsif options[:show].to_s == 'missing'
-      keys.select do |k|
+      keys.select! do |k|
         is_missing = false
         Translator.locales.each do |locale|
             if (locale != :en && @current_store["#{locale.to_s}.#{k.to_s}"].nil?)
@@ -72,7 +73,14 @@ module Translator
         is_missing
       end
     else
-      keys - @framework_keys
+      keys
+    end
+    if options[:filter].present?
+      keys.select! do |key|
+        !key.to_s.match(options[:filter]).nil?
+      end
+    else
+      keys
     end
   end
 

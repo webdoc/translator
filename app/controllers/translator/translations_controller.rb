@@ -3,7 +3,7 @@ module Translator
     before_filter :auth
 
     def index
-      @keys = paginate(Translator.keys_for_strings(:show => params[:show]))
+      @keys = paginate(Translator.keys_for_strings(params))
       render :layout => Translator.layout_name
     end
 
@@ -12,6 +12,11 @@ module Translator
       redirect_to :back unless request.xhr?
     end
 
+    def refresh
+      SimplesIdeias::I18n.export!
+      render :json => { :status => "OK" }
+    end
+    
     private
 
     def auth
