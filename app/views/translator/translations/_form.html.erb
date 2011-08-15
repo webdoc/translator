@@ -1,10 +1,20 @@
-<%= form_tag translations_path, :id => "#{locale}.#{key}".gsub('.', '-'), :class => "translate", "data-remote" => true, :method => "post" do %>
+<% extra_class = "existing_translation" %>
+<% extra_class = "missing_translation" if is_missing %>
+<% extra_class = "" if locale.to_s == 'en' %>
+<%= form_tag translations_path, :id => "#{locale}.#{key}".gsub('.', '-'), :class => "translate #{extra_class}", "data-remote" => true, :method => "post" do %>
   <%= hidden_field_tag :key, "#{locale}.#{key}" %>
   <span class='locale'><%= locale %>: </span><%= text_field_tag :value, val = (begin I18n.backend.translate locale, key; rescue; end), :disabled => locale.to_s == 'en' %>
   <% if locale.to_s != 'en' %>
   <%= submit_tag "Save", "data-disable-with" => "Saving..." %>
   <% end %>
-  <% if (default_val = (begin Translator.simple_backend.translate locale, key; rescue; end;)) != val %>
+  <%
+     begin
+       default_val = Translator.simple_backend.translate locale, key
+     rescue
+       default_val = val
+     end
+  %>
+  <% if (default_val != val) %>
     <%= link_to "Default", '#', "data-recover" => default_val || "" %>
   <% end %>
 <% end %>

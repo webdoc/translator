@@ -50,6 +50,10 @@ module Translator
     @simple_backend.available_locales
   end
 
+  def self.is_missing?(key, locale)
+    @current_store["#{locale.to_s}.#{key.to_s}"].nil?
+  end
+
   def self.keys_for_strings(options = {})
     @simple_backend.available_locales
     flat_translations = {}
@@ -66,7 +70,7 @@ module Translator
       keys.select! do |k|
         is_missing = false
         Translator.locales.each do |locale|
-            if (locale != :en && @current_store["#{locale.to_s}.#{k.to_s}"].nil?)
+            if (locale != :en && Translator.is_missing?(k, locale))
               is_missing = true
             end
         end
