@@ -3,7 +3,11 @@
 <% extra_class = "" if locale.to_s == 'en' %>
 <%= form_tag translations_path, :id => "#{locale}.#{key}".gsub('.', '-'), :class => "translate #{extra_class}", "data-remote" => true, :method => "post" do %>
   <%= hidden_field_tag :key, "#{locale}.#{key}" %>
-  <span class='locale'><%= locale %>: </span><%= text_field_tag :value, val = (begin I18n.backend.translate locale, key; rescue; end), :disabled => locale.to_s == 'en' %>
+  <span class='locale'><%= locale %>: </span>
+  <%= text_field_tag :value, val = (begin I18n.backend.translate locale, key; rescue; end), :disabled => locale.to_s == 'en' %>
+  <%= label_tag 'need_review' %>
+  <%= check_box_tag :need_review, "need_review", Translator.need_review?(key, locale), :disabled => locale.to_s == 'en' %>
+
   <% if locale.to_s != 'en' %>
   <%= submit_tag "Save", "data-disable-with" => "Saving..." %>
   <% end %>

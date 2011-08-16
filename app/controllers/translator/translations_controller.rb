@@ -9,6 +9,7 @@ module Translator
 
     def create
       Translator.current_store[params[:key]] = params[:value]
+      Translator.current_store.set_need_review(params[:key],params[:need_review])
       redirect_to :back unless request.xhr?
     end
 

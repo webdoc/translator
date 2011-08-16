@@ -8,12 +8,10 @@
     <%= text_field_tag 'filter', params[:filter], :style => 'background-color:#fff' %>
     <%= radio_button_tag 'show', 'all', params['show'].blank? || params['show'] == 'all' %>
     <%= label_tag 'all'%>
-    <%= radio_button_tag 'show', 'framework', params['show'] == 'framework'%>
-    <%= label_tag 'framework'%>
-    <%= radio_button_tag 'show', 'application', params['show'] == 'application'%>
-    <%= label_tag 'application'%>
     <%= radio_button_tag 'show', 'missing', params['show'] == 'missing'%>
     <%= label_tag 'missing'%>
+    <%= radio_button_tag 'show', 'need_review', params['show'] == 'need_review'%>
+    <%= label_tag 'need_review'%>
     <%= submit_tag 'Find' %>
   <% end %>
 

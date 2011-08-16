@@ -1,7 +1,8 @@
 module Translator
   class MongoStore
-    def initialize(collection)
-      @collection = collection
+    def initialize(database)
+      @database = database
+      @collection = @database.collection("translations")
     end
 
     def keys
@@ -23,10 +24,27 @@ module Translator
       end
     end
 
+    def set_need_review(key, flag)
+      value_to_set = flag ? true : false
+      collection.update({:_id => key},
+                        {'$set' => {:need_review => flag}},
+                        {:safe => true})
+    end
+
+    def need_review?(key)
+      if document = collection.find_one(:_id => key)
+        document["need_review"]? true : false
+      else
+        false
+      end
+    end
+
     def clear_database
       collection.drop
     end
 
+    # return all translations in the form of a hash like
+    # { :en => { :namespace => {:key => "blabla" } } }
     def translations
       result = {}
       collection.find.each do |an_entry|
