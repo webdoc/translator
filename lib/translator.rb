@@ -1,5 +1,5 @@
 require 'translator/engine' if defined?(Rails) && Rails::VERSION::MAJOR == 3
-p "Hello translator"
+
 module Translator
   class << self
     attr_accessor :auth_handler, :current_store

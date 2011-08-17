@@ -39,6 +39,10 @@ module Translator
       end
     end
 
+    def clear_key(key)
+      collection.remove(:_id => key)
+    end
+
     def clear_database
       collection.drop
     end

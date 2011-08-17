@@ -8,8 +8,13 @@ module Translator
     end
 
     def create
-      Translator.current_store[params[:key]] = params[:value]
-      Translator.current_store.set_need_review(params[:key],params[:need_review])
+      if (params[:value].blank?)
+        Translator.current_store.clear_key(params[:key])
+      else
+        Translator.current_store[params[:key]] = params[:value]
+        Translator.current_store.set_need_review(params[:key],params[:need_review])
+      end
+
       redirect_to :back unless request.xhr?
     end
 
