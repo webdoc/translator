@@ -23,7 +23,7 @@ module Translator
     def [](key)
       document = collection.find({:_id => Regexp.new("^#{key}")})
       if document && document.count == 1
-        document["value"]
+        document.first()["value"]
       elsif document && document.count > 1
         result = {}
         document.each do |d|
