@@ -30,7 +30,7 @@ module Translator
       elsif document && document.count > 1
         result = {}
         document.each do |d|
-          result[d['_id'].gsub("#{key}.", "").to_sym] = d['value']
+          result[d['_id'].gsub("#{key}.", "").to_sym] = ActiveSupport::JSON.decode(d['value'])
         end
         ActiveSupport::JSON.encode(result)
       end
