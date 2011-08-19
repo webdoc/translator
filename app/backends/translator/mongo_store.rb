@@ -21,8 +21,8 @@ module Translator
     end
 
     def [](key)
-      document = collection.find_one({:_id => key})
-      if (!document)
+      document = collection.find({:_id => key})
+      if (!document || document.count == 0)
         document = collection.find({:_id => Regexp.new("^#{key}\.")})
       end
       if document && document.count == 1
