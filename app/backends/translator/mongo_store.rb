@@ -5,6 +5,10 @@ module Translator
       @collection = @database.collection("translations")
     end
 
+    def database
+      return @database
+    end
+    
     def keys
       @collection.distinct :_id
     end
@@ -17,10 +21,15 @@ module Translator
     end
 
     def [](key)
-      if document = collection.find_one(:_id => key)
+      document = collection.find({:_id => Regexp.new("^#{key}")})
+      if document && document.count == 1
         document["value"]
-      else
-        nil
+      elsif document && document.count > 1
+        result = {}
+        document.each do |d|
+          result[d['_id'].gsub("#{key}.", "").to_sym] = d['value']
+        end
+        ActiveSupport::JSON.encode(result)
       end
     end
 
