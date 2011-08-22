@@ -23,7 +23,7 @@ module Translator
     def [](key)
       document = collection.find({:_id => key})
       if (!document || document.count == 0)
-        document = collection.find({:_id => Regexp.new("^#{key}\.")})
+        document = collection.find({:_id => Regexp.new("^#{key}" + '\.')})
       end
       if document && document.count == 1
         document.first()["value"]

@@ -19,7 +19,12 @@ module Translator
     end
 
     def refresh
-      SimplesIdeias::I18n.export!
+      # need to re-export all translations for javascript client
+      if (SimplesIdeias)
+        SimplesIdeias::I18n.export!
+      end
+      # we need to be sure all caches are cleared to read the new translations
+      ActionController::Base.cache_store.clear
       render :json => { :status => "OK" }
     end
     
