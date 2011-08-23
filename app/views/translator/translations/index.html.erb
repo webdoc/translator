@@ -12,6 +12,8 @@
     <%= label_tag 'missing'%>
     <%= radio_button_tag 'show', 'need_review', params['show'] == 'need_review'%>
     <%= label_tag 'need_review'%>
+    <%= select_tag 'current_locale', options_from_collection_for_select(Kernel.const_get("Locale").excludes(:master => true), 'name', 'name', @current_locale), {:include_blank => true} %>
+    <%= label_tag 'current_locale'%>
     <%= submit_tag 'Find' %>
   <% end %>
 
@@ -21,9 +23,16 @@
     <h2>Keys</h2>
   <% end %>
   <% @keys.each do |key| %>
-    <%= key %>
-    <% Translator.locales.each do |locale| %>
-      <%= render :partial => "form", :locals => {:locale => locale, :key => key, :is_missing => Translator.is_missing?(key, locale)} %>
+    <h3><%= key %></h3>
+    <%= render :partial => "form", :locals => {:locale => :en, :key => key, :is_missing => false } %>
+    <% if (!@current_locale.blank?) %>
+      <%= render :partial => "form", :locals => {:locale => @current_locale, :key => key, :is_missing => Translator.is_missing?(key, @current_locale)} %>
+    <% else %>
+      <% Translator.locales.each do |locale| %>
+        <% if locale.to_sym != :en %>
+          <%= render :partial => "form", :locals => {:locale => locale, :key => key, :is_missing => Translator.is_missing?(key, locale)} %>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
 

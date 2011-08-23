@@ -4,6 +4,8 @@ module Translator
 
     def index
       @keys = paginate(Translator.keys_for_strings(params))
+      @current_locale = params[:current_locale]
+      @current_locale ||= ''
       render :layout => Translator.layout_name
     end
 

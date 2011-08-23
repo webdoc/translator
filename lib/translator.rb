@@ -14,7 +14,7 @@ module Translator
   end
 
   def self.locales
-    @simple_backend.available_locales
+    Locale.where(:active => true).map { |l| l.name.to_sym }
   end
 
   def self.is_missing?(key, locale)
@@ -26,7 +26,7 @@ module Translator
   end
 
   def self.keys_for_strings(options = {})
-    @simple_backend.available_locales
+    
     flat_translations = {}
     flatten_keys nil, @simple_backend.instance_variable_get("@translations"), flat_translations
     flat_translations = flat_translations.delete_if {|k,v| !v.is_a?(String)}
@@ -36,7 +36,12 @@ module Translator
     if options[:show].to_s == 'missing'
       keys.select! do |k|
         is_missing = false
-        Translator.locales.each do |locale|
+        locales_to_check = Translator.locales
+        if (!options[:current_locale].blank?)
+          locales_to_check = [options[:current_locale]]
+        end
+         
+        locales_to_check.each do |locale|
             if (locale != :en && Translator.is_missing?(k, locale))
               is_missing = true
             end
