@@ -8,7 +8,7 @@ module Translator
     end
 
     def create
-      if (params[:value].blank?)
+      if (params[:commit] == 'Clear')
         Translator.current_store.clear_key(params[:key])
       else
         Translator.current_store[params[:key]] = params[:value]
